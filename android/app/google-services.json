@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "749162325727",
+    "project_id": "magazine-info-d423b",
+    "storage_bucket": "magazine-info-d423b.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:749162325727:android:c810dd19d5b655a5da2b6a",
+        "android_client_info": {
+          "package_name": "com.example.appli"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDuaTdo78t8DpyAOo7FRt2WQMMc7tv8QMo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
