@@ -10,7 +10,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       drawer: MainDrawer(),
       appBar: AppBar(
-        title:  Text(
+        title: Text(
           'Magazine info',
           style: TextStyle(
             color: Colors.white,
@@ -21,9 +21,21 @@ class HomePage extends StatelessWidget {
         ),
         backgroundColor: Colors.pink,
         centerTitle: true,
-        actions: [Icon(Icons.home)],
+        actions: [
+          IconButton(
+            icon: Icon(Icons.home, color: Colors.white),
+            tooltip: 'Accueil',
+            onPressed: () {
+              // Retour à la page d'accueil (MyBody)
+              Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => HomePage()),
+                (route) => false,
+              );
+            },
+          ),
+        ],
       ),
-    body:MyBody(),
+      body: MyBody(),
     );
   }
 }

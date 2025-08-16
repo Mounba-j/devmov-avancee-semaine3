@@ -22,13 +22,17 @@ class _MyBodyState extends State<MyBody> {
               Image.asset(
                 "assets/images/couverture.png",
                 height: MediaQuery.of(context).size.height * 0.3,
-                width: MediaQuery.of(context).size.height,
-                fit: BoxFit.fill,
+                width: double.infinity,
+                fit: BoxFit.cover,
               ),
               SizedBox(height: 10),
               Text(
-                "Bienvenue à votre Magazine",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                "Bienvenue dans votre Magazine",
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
               Text(
                 "Votre magazine numérique, notre reussite!",
@@ -52,37 +56,7 @@ class _MyBodyState extends State<MyBody> {
                 ],
               ),
               Divider(),
-              // First row of images
-              Container(
-                margin: const EdgeInsets.all(8),
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Image.asset(
-                          "assets/images/image1.png",
-                          height: 120,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Image.asset(
-                          "assets/images/image2.png",
-                          height: 120,
-                          fit: BoxFit.contain,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // Second row of images (if needed, you can remove this if not required)
+              // Ligne d'images unique
               Container(
                 margin: const EdgeInsets.all(8),
                 padding: const EdgeInsets.all(10),
