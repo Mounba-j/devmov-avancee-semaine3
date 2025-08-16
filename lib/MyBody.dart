@@ -8,10 +8,18 @@ class MyBody extends StatefulWidget {
 }
 
 class _MyBodyState extends State<MyBody> {
+  int _selectedIndex = 0;
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Container(
+    final List<Widget> pages = [
+      // Page Accueil
+      Container(
         decoration: BoxDecoration(
           color: const Color.fromARGB(239, 238, 126, 163),
         ),
@@ -47,8 +55,12 @@ class _MyBodyState extends State<MyBody> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  _buildIconWithLabel(Icons.call, "Appeler", Colors.pink.shade400, Colors.white),
-                  
+                  _buildIconWithLabel(
+                    Icons.call,
+                    "Appeler",
+                    Colors.pink.shade400,
+                    Colors.white,
+                  ),
                   SizedBox(width: 28),
                   _buildIconWithLabel(Icons.mail, "Mail", Colors.pink.shade200, Colors.white),
                   SizedBox(width: 28),
@@ -56,38 +68,182 @@ class _MyBodyState extends State<MyBody> {
                 ],
               ),
               Divider(),
-              // Ligne d'images unique
-              Container(
-                margin: const EdgeInsets.all(8),
-                padding: const EdgeInsets.all(10),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Image.asset(
-                          "assets/images/image1.png",
-                          height: 120,
-                          fit: BoxFit.contain,
-                        ),
+              SizedBox(height: 20),
+              // Ligne d'images unique ajustée
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Image.asset(
+                        "assets/images/image1.png",
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    Flexible(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                        child: Image.asset(
-                          "assets/images/image2.png",
-                          height: 120,
-                          fit: BoxFit.contain,
-                        ),
+                  ),
+                  Expanded(
+                    child: AspectRatio(
+                      aspectRatio: 1,
+                      child: Image.asset(
+                        "assets/images/image2.png",
+                        fit: BoxFit.cover,
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),
+        ),
+      ),
+      // Page Favoris créative
+      Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              Colors.pink.shade50,
+              Colors.pink.shade100,
+              Colors.pink.shade200,
+            ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(Icons.favorite, color: Colors.pink, size: 80),
+              SizedBox(height: 16),
+              Text(
+                'Vos favoris',
+                style: TextStyle(
+                  fontSize: 26,
+                  color: Colors.pink.shade700,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Retrouvez ici vos articles préférés !',
+                style: TextStyle(fontSize: 16, color: Colors.pink.shade400),
+              ),
+            ],
+          ),
+        ),
+      ),
+      // Page Profil créative
+      Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.pink.shade100, Colors.white],
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 40,
+                backgroundColor: Colors.pink.shade200,
+                child: Icon(Icons.person, color: Colors.white, size: 50),
+              ),
+              SizedBox(height: 16),
+              Text(
+                'Mon Profil',
+                style: TextStyle(
+                  fontSize: 26,
+                  color: Colors.pink.shade700,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              SizedBox(height: 8),
+              Text(
+                'Gérez vos informations personnelles ici.',
+                style: TextStyle(fontSize: 16, color: Colors.pink.shade400),
+              ),
+            ],
+          ),
+        ),
+      ),
+    ];
+
+    return Scaffold(
+      body: AnimatedSwitcher(
+        duration: Duration(milliseconds: 400),
+        child: pages[_selectedIndex],
+        transitionBuilder: (child, animation) =>
+            FadeTransition(opacity: animation, child: child),
+      ),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.pink.withOpacity(0.08),
+              blurRadius: 12,
+              offset: Offset(0, -2),
+            ),
+          ],
+          borderRadius: BorderRadius.vertical(top: Radius.circular(18)),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          backgroundColor: Colors.transparent,
+          selectedItemColor: Colors.pink,
+          unselectedItemColor: Colors.pink.shade100,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
+          type: BottomNavigationBarType.fixed,
+          elevation: 0,
+          items: [
+            BottomNavigationBarItem(
+              icon: AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                padding: EdgeInsets.all(_selectedIndex == 0 ? 6 : 0),
+                decoration: BoxDecoration(
+                  color: _selectedIndex == 0
+                      ? Colors.pink.shade50
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.home),
+              ),
+              label: 'Accueil',
+            ),
+            BottomNavigationBarItem(
+              icon: AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                padding: EdgeInsets.all(_selectedIndex == 1 ? 6 : 0),
+                decoration: BoxDecoration(
+                  color: _selectedIndex == 1
+                      ? Colors.pink.shade50
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.favorite),
+              ),
+              label: 'Favoris',
+            ),
+            BottomNavigationBarItem(
+              icon: AnimatedContainer(
+                duration: Duration(milliseconds: 300),
+                padding: EdgeInsets.all(_selectedIndex == 2 ? 6 : 0),
+                decoration: BoxDecoration(
+                  color: _selectedIndex == 2
+                      ? Colors.pink.shade50
+                      : Colors.transparent,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(Icons.person),
+              ),
+              label: 'Profil',
+            ),
+          ],
         ),
       ),
     );
